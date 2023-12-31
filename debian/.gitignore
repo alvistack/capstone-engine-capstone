@@ -1,0 +1,9 @@
+*.substvars
+*debhelper*
+.debhelper
+capstone-tool
+files
+libcapstone-dev
+libcapstone4
+python3-capstone
+tmp

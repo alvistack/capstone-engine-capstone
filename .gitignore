@@ -129,3 +129,6 @@ cstool/cstool
 
 # android
 android-ndk-*
+
+obj-x86_64-linux-gnu/
+.pybuild/
