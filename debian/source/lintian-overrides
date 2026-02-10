@@ -1,0 +1,4 @@
+capstone source: file-without-copyright-information
+capstone source: no-debian-changes
+capstone source: not-binnmuable-any-depends-any
+capstone source: weak-library-dev-dependency
