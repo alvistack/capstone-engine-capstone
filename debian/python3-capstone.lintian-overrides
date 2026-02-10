@@ -1,0 +1,4 @@
+python3-capstone: copyright-without-copyright-notice
+python3-capstone: initial-upload-closes-no-bugs
+python3-capstone: package-has-unnecessary-activation-of-ldconfig-trigger
+python3-capstone: zero-byte-file-in-doc-directory
