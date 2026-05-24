@@ -1,0 +1,39 @@
+#!/usr/bin/make -f
+
+SHELL := /bin/bash
+
+override_dh_auto_configure:
+	dh_auto_configure \
+		-- \
+		-DBUILD_SHARED_LIBS="ON" \
+		-DBUILD_STATIC_LIBS="OFF" \
+		-DCAPSTONE_BUILD_STATIC_RUNTIME="OFF" \
+		-DCAPSTONE_ARCHITECTURE_DEFAULT="OFF" \
+		-DCAPSTONE_X86_SUPPORT="ON" \
+		-DMULTIARCH_TUPLE=$(DEB_HOST_MULTIARCH) \
+		$(DEB_CMAKE_CUSTOM_FLAGS)
+
+override_dh_auto_build:
+	dh_auto_build
+	dh_auto_build \
+		--buildsystem=pybuild \
+		--sourcedirectory=bindings/python
+
+override_dh_auto_install:
+	dh_auto_install \
+		--destdir=debian/tmp
+	dh_auto_install \
+		--buildsystem=pybuild \
+		--sourcedirectory=bindings/python \
+		--destdir=debian/tmp
+	rm -rf debian/tmp/usr/lib/python*/*-packages/*/include
+	rm -rf debian/tmp/usr/lib/python*/*-packages/*/lib
+	find debian/tmp/usr/lib/python*/*-packages -type f -name '*.pyc' -exec rm -rf {} \;
+	fdupes -qnrps debian/tmp/usr/lib/python*/*-packages
+
+override_dh_auto_test:
+
+override_dh_auto_clean:
+
+%:
+	dh $@ --buildsystem=cmake --with python3
